@@ -1,0 +1,324 @@
+{
+    "key": "group_restaurant_menu",
+    "title": "Меню ресторану",
+    "fields": [
+        {
+            "key": "field_menu_categories",
+            "label": "Категорії меню",
+            "name": "menu_categories",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Додайте категорії меню (наприклад, Закуски, Основні страви, Десерти)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "min": 1,
+            "max": 0,
+            "collapsed": "field_category_name",
+            "button_label": "Додати категорію",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_category_name",
+                    "label": "Назва категорії",
+                    "name": "category_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Введіть назву категорії меню",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Наприклад: Закуски",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_menu_categories"
+                },
+                {
+                    "key": "field_category_description",
+                    "label": "Опис категорії",
+                    "name": "category_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Додайте короткий опис категорії",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "Опишіть цю категорію страв",
+                    "new_lines": "br",
+                    "parent_repeater": "field_menu_categories"
+                },
+                {
+                    "key": "field_category_dishes",
+                    "label": "Страви",
+                    "name": "dishes",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Додайте страви до цієї категорії",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "min": 1,
+                    "max": 0,
+                    "collapsed": "field_dish_name",
+                    "button_label": "Додати страву",
+                    "rows_per_page": 20,
+                    "parent_repeater": "field_menu_categories",
+                    "sub_fields": [
+                        {
+                            "key": "field_dish_name",
+                            "label": "Назва страви",
+                            "name": "dish_name",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Введіть назву страви",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "Наприклад: Рататуй",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_description",
+                            "label": "Опис страви",
+                            "name": "dish_description",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "Опишіть страву",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "placeholder": "Опишіть страву та її приготування",
+                            "new_lines": "br",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_image",
+                            "label": "Фото страви",
+                            "name": "dish_image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Завантажте фото страви",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": 800,
+                            "min_height": 600,
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": 2,
+                            "mime_types": "jpg,jpeg,png",
+                            "preview_size": "medium",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_price",
+                            "label": "Ціна",
+                            "name": "price",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "Введіть ціну в гривнях",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "min": 0,
+                            "max": "",
+                            "placeholder": "",
+                            "step": "0.01",
+                            "prepend": "",
+                            "append": "₴",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_weight",
+                            "label": "Вага\/Об'єм",
+                            "name": "weight",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Введіть вагу в грамах або об'єм в мл",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Наприклад: 250г або 300мл",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_spiciness",
+                            "label": "Рівень гостроти",
+                            "name": "spiciness_level",
+                            "aria-label": "",
+                            "type": "range",
+                            "instructions": "Виберіть рівень гостроти від 0 (не гостра) до 5 (дуже гостра)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": 0,
+                            "min": 0,
+                            "max": 5,
+                            "step": 1,
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_category_dishes"
+                        },
+                        {
+                            "key": "field_dish_ingredients",
+                            "label": "Інгредієнти",
+                            "name": "ingredients",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Додайте інгредієнти для цієї страви",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 1,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Додати інгредієнт",
+                            "rows_per_page": 20,
+                            "parent_repeater": "field_category_dishes",
+                            "sub_fields": [
+                                {
+                                    "key": "field_ingredient_name",
+                                    "label": "Інгредієнт",
+                                    "name": "ingredient_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "Введіть назву інгредієнта",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_dish_ingredients"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_dish_special_badge",
+                            "label": "Спеціальна позначка",
+                            "name": "special_badge",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "Виберіть спеціальну позначку для цієї страви, якщо потрібно",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "": "Немає",
+                                "new": "Новинка",
+                                "chef_special": "Від шефа",
+                                "spicy": "Гостра",
+                                "vegetarian": "Вегетаріанська",
+                                "bestseller": "Хіт продажу"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 1,
+                            "ui": 1,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "parent_repeater": "field_category_dishes"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "193"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для меню ресторану",
+    "show_in_rest": 0,
+    "modified": 1746959902
+}

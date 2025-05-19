@@ -1,0 +1,239 @@
+{
+    "key": "group_gallery_section",
+    "title": "Галерея ресторану",
+    "fields": [
+        {
+            "key": "field_gallery_title",
+            "label": "Заголовок галереї",
+            "name": "gallery_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Введіть заголовок для секції галереї",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наша галерея",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_gallery_description",
+            "label": "Опис галереї",
+            "name": "gallery_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Додайте короткий опис галереї",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": "br",
+            "placeholder": ""
+        },
+        {
+            "key": "field_gallery_categories",
+            "label": "Категорії галереї",
+            "name": "gallery_categories",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Додайте категорії для фотографій (наприклад: Інтер'єр, Страви, Події)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "min": 1,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Додати категорію",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_category_name",
+                    "label": "Назва категорії",
+                    "name": "category_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Введіть назву категорії",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_gallery_categories"
+                },
+                {
+                    "key": "field_category_images",
+                    "label": "Фотографії",
+                    "name": "category_images",
+                    "aria-label": "",
+                    "type": "gallery",
+                    "instructions": "Додайте фотографії для цієї категорії",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "insert": "append",
+                    "library": "all",
+                    "min": 1,
+                    "max": 20,
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png",
+                    "parent_repeater": "field_gallery_categories"
+                },
+                {
+                    "key": "field_category_description",
+                    "label": "Опис категорії",
+                    "name": "category_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Додайте опис для цієї категорії фотографій",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "br",
+                    "parent_repeater": "field_gallery_categories"
+                }
+            ]
+        },
+        {
+            "key": "field_gallery_settings",
+            "label": "Налаштування галереї",
+            "name": "gallery_settings",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_images_per_page",
+                    "label": "Кількість фото на сторінці",
+                    "name": "images_per_page",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Скільки фотографій показувати на одній сторінці",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 12,
+                    "min": 4,
+                    "max": 24,
+                    "step": 4,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_enable_lightbox",
+                    "label": "Увімкнути lightbox",
+                    "name": "enable_lightbox",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Дозволити перегляд фотографій у повноекранному режимі",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_enable_categories",
+                    "label": "Показувати категорії",
+                    "name": "show_categories",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Показувати фільтр по категоріях",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/gallery.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Налаштування для галереї ресторану",
+    "show_in_rest": 0,
+    "modified": 1747127651
+}

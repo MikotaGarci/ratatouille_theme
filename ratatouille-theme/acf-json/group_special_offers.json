@@ -1,0 +1,235 @@
+{
+    "key": "group_special_offers",
+    "title": "Спеціальні пропозиції",
+    "fields": [
+        {
+            "key": "field_special_offers",
+            "label": "Спеціальні пропозиції",
+            "name": "special_offers",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Додайте спеціальні пропозиції ресторану",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "min": 1,
+            "max": 6,
+            "collapsed": "field_offer_title",
+            "button_label": "Додати пропозицію",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_offer_image",
+                    "label": "Зображення",
+                    "name": "offer_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Завантажте зображення для спеціальної пропозиції",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 800,
+                    "min_height": 600,
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": 2,
+                    "mime_types": "jpg,jpeg,png",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_title",
+                    "label": "Назва",
+                    "name": "offer_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Введіть назву спеціальної пропозиції",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Наприклад: Страва дня",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_description",
+                    "label": "Опис",
+                    "name": "offer_description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Додайте опис спеціальної пропозиції",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "Опишіть спеціальну пропозицію",
+                    "new_lines": "",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_price",
+                    "label": "Ціна",
+                    "name": "offer_price",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Введіть ціну в гривнях",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": 0,
+                    "max": "",
+                    "placeholder": "",
+                    "step": "0.01",
+                    "prepend": "",
+                    "append": "₴",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_badge",
+                    "label": "Значок",
+                    "name": "offer_badge",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Виберіть значок для пропозиції",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "new": "Новинка",
+                        "special": "Спеціальна пропозиція",
+                        "limited": "Обмежена пропозиція",
+                        "sale": "Акція"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_spiciness",
+                    "label": "Рівень гостроти",
+                    "name": "offer_spiciness",
+                    "aria-label": "",
+                    "type": "range",
+                    "instructions": "Виберіть рівень гостроти від 0 (не гостра) до 5 (дуже гостра)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "min": 0,
+                    "max": 5,
+                    "step": 1,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_special_offers"
+                },
+                {
+                    "key": "field_offer_ingredients",
+                    "label": "Інгредієнти",
+                    "name": "offer_ingredients",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Додайте інгредієнти для цієї пропозиції",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "min": 1,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Додати інгредієнт",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_ingredient_name",
+                            "label": "Назва інгредієнта",
+                            "name": "ingredient_name",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "Введіть назву інгредієнта",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_offer_ingredients"
+                        }
+                    ],
+                    "parent_repeater": "field_special_offers"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "22"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для секції спеціальних пропозицій",
+    "show_in_rest": 0,
+    "modified": 1747067144
+}

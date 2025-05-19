@@ -1,0 +1,77 @@
+/* Стили для секции приветствия */
+.welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.welcome-section h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 20px;
+}
+
+.welcome-section img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Стили для секции специальных предложений */
+.special-offers {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.special-offers h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.offer {
+    display: inline-block;
+    width: 30%;
+    margin: 0 1.5%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.offer img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.offer h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 20px 0 10px;
+}
+
+.offer p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .offer {
+        width: 48%;
+        margin: 0 1%;
+    }
+}
+
+@media (max-width: 480px) {
+    .offer {
+        width: 100%;
+        margin: 0 0 20px;
+    }
+}
