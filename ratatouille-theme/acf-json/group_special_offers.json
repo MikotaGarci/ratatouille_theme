@@ -218,7 +218,7 @@
             {
                 "param": "page",
                 "operator": "==",
-                "value": "22"
+                "value": "925"
             }
         ]
     ],
@@ -231,5 +231,5 @@
     "active": true,
     "description": "Поля для секції спеціальних пропозицій",
     "show_in_rest": 0,
-    "modified": 1747067144
+    "modified": 1749218151
 }

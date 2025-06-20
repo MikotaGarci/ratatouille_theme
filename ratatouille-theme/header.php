@@ -4,6 +4,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.ico">
     <?php wp_head(); ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -15,7 +16,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 70px; /* Отступ для фиксированного хедера */
+            padding-top: 70px;
         }
         
         .site-header {
@@ -63,7 +64,7 @@
         }
         
         .btn-reservation {
-            background
+            background: #E67E22;
             color: white !important;
             padding: 8px 15px;
             border-radius: 4px;
@@ -78,7 +79,6 @@
             cursor: pointer;
         }
         
-        /* Мобильная версия */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -115,73 +115,66 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header id="masthead" class="site-header">
-    <div class="header-container">
-        <div class="site-branding">
-            <?php if (has_custom_logo()) : ?>
-                <div class="site-logo">
-                    <?php the_custom_logo(); ?>
-                </div>
-            <?php else : ?>
-                <h1 class="site-title">
-                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-                        <?php bloginfo('name'); ?>
-                    </a>
-                </h1>
-            <?php endif; ?>
+<div id="page" class="site">
+    <header id="masthead" class="site-header">
+        <div class="header-container">
+            <div class="site-branding">
+                <?php if (has_custom_logo()) : ?>
+                    <div class="site-logo">
+                        <?php the_custom_logo(); ?>
+                    </div>
+                <?php else : ?>
+                    <h1 class="site-title">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+                            <?php bloginfo('name'); ?>
+                        </a>
+                    </h1>
+                <?php endif; ?>
+            </div>
+
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="site-navigation" class="main-navigation">
+                <?php
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'menu_class' => 'nav-menu',
+                    'container' => false,
+                    'fallback_cb' => function() {
+                        ?>
+                        <ul id="primary-menu" class="nav-menu">
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('special-offers'))); ?>"><?php esc_html_e('Спеціальні', 'ratatouille'); ?></a></li>
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('about'))); ?>"><?php esc_html_e('Про нас', 'ratatouille'); ?></a></li>
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('menu'))); ?>"><?php esc_html_e('Меню', 'ratatouille'); ?></a></li>
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('gallery'))); ?>"><?php esc_html_e('Галерея', 'ratatouille'); ?></a></li>
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('testimonials'))); ?>"><?php esc_html_e('Відгуки', 'ratatouille'); ?></a></li>
+                            <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('booking'))); ?>" class="btn-reservation"><?php esc_html_e('Забронювати', 'ratatouille'); ?></a></li>
+                        </ul>
+                        <?php
+                    }
+                ));
+                ?>
+            </nav>
         </div>
+    </header>
 
-        <button class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <nav id="site-navigation" class="main-navigation">
-            <ul id="primary-menu" class="nav-menu">
-                <li><a href="<?php echo esc_url(home_url('/')); ?>">Головна</a></li>
-                <li><a href="#specialties">Спеціальні</a></li>
-                <li><a href="#about">Про нас</a></li>
-                <li><a href="#menu">Меню</a></li>
-                <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#testimonials">Відгуки</a></li>
-                <li><a href="#reservation" class="btn-reservation">Забронювати</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<div id="content" class="site-content">
+    <div id="content" class="site-content">
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    // Переключение мобильного меню
     menuToggle.addEventListener('click', function() {
         navMenu.classList.toggle('active');
     });
     
-    // Закрытие меню при клике на ссылку
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
                 navMenu.classList.remove('active');
-            }
-        });
-    });
-    
-    // Плавная прокрутка
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerHeight = document.querySelector('.site-header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
             }
         });
     });

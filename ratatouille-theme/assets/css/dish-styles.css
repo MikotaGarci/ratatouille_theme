@@ -1,0 +1,154 @@
+/* Dish Styles */
+.dish-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dish-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.dish-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e67e22;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.item-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.item-name {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.item-description {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.spicy-level {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.spicy-label {
+    margin-right: 10px;
+    color: #666;
+}
+
+.spicy-stars {
+    display: flex;
+    gap: 5px;
+}
+
+.spicy-stars i {
+    color: #ddd;
+}
+
+.spicy-stars i.active {
+    color: #e74c3c;
+}
+
+/* Bottom section - always at the bottom */
+.item-bottom {
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.item-weight {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.item-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.ingredients-btn {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.ingredients-btn:hover {
+    background: #f5f5f5;
+}
+
+.ingredients-content {
+    display: none;
+    margin-top: 15px;
+}
+
+.ingredients-content.active {
+    display: block;
+}
+
+.ingredient-item {
+    display: inline-block;
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .dish-image {
+        height: 200px;
+    }
+    
+    .item-name {
+        font-size: 1.2rem;
+    }
+    
+    .item-price {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,338 @@
+{
+    "key": "group_table_reservations",
+    "title": "Бронювання столика",
+    "fields": [
+        {
+            "key": "field_customer_name",
+            "label": "Ім'я",
+            "name": "customer_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Введіть ім'я клієнта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Введіть ваше ім'я",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_customer_phone",
+            "label": "Телефон",
+            "name": "customer_phone",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Введіть номер телефону клієнта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "+38 (XXX) XXX-XX-XX",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_customer_email",
+            "label": "Email",
+            "name": "customer_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Email адреса клієнта (необов'язково)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "example@email.com",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_reservation_date",
+            "label": "Дата",
+            "name": "reservation_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "Оберіть дату бронювання",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y",
+            "return_format": "Y-m-d",
+            "first_day": 1
+        },
+        {
+            "key": "field_reservation_time",
+            "label": "Час",
+            "name": "reservation_time",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Оберіть час бронювання",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "12:00": "12:00",
+                "12:30": "12:30",
+                "13:00": "13:00",
+                "13:30": "13:30",
+                "14:00": "14:00",
+                "14:30": "14:30",
+                "15:00": "15:00",
+                "15:30": "15:30",
+                "16:00": "16:00",
+                "16:30": "16:30",
+                "17:00": "17:00",
+                "17:30": "17:30",
+                "18:00": "18:00",
+                "18:30": "18:30",
+                "19:00": "19:00",
+                "19:30": "19:30",
+                "20:00": "20:00",
+                "20:30": "20:30",
+                "21:00": "21:00",
+                "21:30": "21:30",
+                "22:00": "22:00"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": "Оберіть час"
+        },
+        {
+            "key": "field_guests_count",
+            "label": "Кількість гостей",
+            "name": "guests_count",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Введіть кількість гостей",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 2,
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "осіб"
+        },
+        {
+            "key": "field_table_number",
+            "label": "Номер столика",
+            "name": "table_number",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Номер столика (автоматично заповнюється при виборі на схемі)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 1,
+            "max": 55,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "№",
+            "append": ""
+        },
+        {
+            "key": "field_reservation_status",
+            "label": "Статус",
+            "name": "reservation_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Статус бронювання",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "pending": "Очікує підтвердження",
+                "confirmed": "Підтверджено",
+                "cancelled": "Скасовано",
+                "completed": "Завершено",
+                "no_show": "Не з'явився"
+            },
+            "default_value": "pending",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_special_requests",
+            "label": "Примітки",
+            "name": "special_requests",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Особливі побажання або примітки до бронювання",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "Наприклад: столик біля вікна, день народження, алергії тощо",
+            "new_lines": "br"
+        },
+        {
+            "key": "field_reservation_created_date",
+            "label": "Дата створення",
+            "name": "reservation_created_date",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "Дата та час створення бронювання (автоматично)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y H:i",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1
+        },
+        {
+            "key": "field_reservation_confirmed_date",
+            "label": "Дата підтвердження",
+            "name": "reservation_confirmed_date",
+            "aria-label": "",
+            "type": "date_time_picker",
+            "instructions": "Дата та час підтвердження бронювання",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_reservation_status",
+                        "operator": "==",
+                        "value": "confirmed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y H:i",
+            "return_format": "Y-m-d H:i:s",
+            "first_day": 1
+        },
+        {
+            "key": "field_reminder_sent",
+            "label": "Нагадування відправлено",
+            "name": "reminder_sent",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Чи було відправлено нагадування клієнту",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Так",
+            "ui_off_text": "Ні"
+        },
+        {
+            "key": "field_admin_notes",
+            "label": "Примітки адміністратора",
+            "name": "admin_notes",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Внутрішні примітки для адміністрації",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "Внутрішні примітки...",
+            "new_lines": "br"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "reservation"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "slug",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "Поля для управління бронюванням столиків у ресторані",
+    "show_in_rest": 0,
+    "modified": 1749369501
+}

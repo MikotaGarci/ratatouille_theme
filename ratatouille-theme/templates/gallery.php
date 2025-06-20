@@ -31,7 +31,7 @@ get_header(); ?>
             </div>
 
             <?php if ($gallery_categories && is_array($gallery_categories)) : ?>
-                <?php if ($show_categories) : ?>
+                <?php if ($show_categories && count($gallery_categories) > 1) : ?>
                     <div class="gallery-categories">
                         <button class="category-filter active" data-category="all">
                             <?php esc_html_e('Всі', 'ratatouille'); ?>
@@ -49,113 +49,58 @@ get_header(); ?>
                     </div>
                 <?php endif; ?>
 
-                <div class="gallery-grid">
-                    <?php 
-                    foreach ($gallery_categories as $category) :
-                        if (empty($category['category_name']) || empty($category['category_images'])) {
-                            continue;
-                        }
-                        
-                        $category_slug = sanitize_title($category['category_name']);
-                        $images = $category['category_images'];
-                        
-                        foreach ($images as $image) : 
-                            if (!is_array($image) || empty($image['ID'])) {
+                <div class="gallery-container">
+                    <div class="gallery-grid">
+                        <?php 
+                        foreach ($gallery_categories as $category) :
+                            if (empty($category['category_name']) || empty($category['category_images'])) {
                                 continue;
                             }
                             
-                            $full_image = wp_get_attachment_image_src($image['ID'], 'full');
-                            $thumbnail = wp_get_attachment_image_src($image['ID'], 'large');
+                            $category_slug = sanitize_title($category['category_name']);
+                            $images = $category['category_images'];
                             
-                            if (!$full_image || !$thumbnail) {
-                                continue;
-                            }
-                            
-                            $image_url = $full_image[0];
-                            $thumb_url = $thumbnail[0];
-                            $image_alt = $image['alt'] ?: $category['category_name'];
-                    ?>
-                            <div class="gallery-item" data-category="<?php echo esc_attr($category_slug); ?>">
-                                <a href="<?php echo esc_url($image_url); ?>" 
-                                   class="gallery-lightbox"
-                                   title="<?php echo esc_attr($image_alt); ?>">
-                                    <img src="<?php echo esc_url($thumb_url); ?>" 
-                                         alt="<?php echo esc_attr($image_alt); ?>"
-                                         loading="lazy">
-                                    <div class="gallery-overlay">
-                                        <i class="fas fa-search-plus"></i>
-                                    </div>
-                                </a>
-                            </div>
-                    <?php 
-                        endforeach;
-                    endforeach; 
-                    ?>
+                            foreach ($images as $image) : 
+                                if (!is_array($image) || empty($image['ID'])) {
+                                    continue;
+                                }
+                                
+                                $full_image = wp_get_attachment_image_src($image['ID'], 'full');
+                                $thumbnail = wp_get_attachment_image_src($image['ID'], 'large');
+                                
+                                if (!$full_image || !$thumbnail) {
+                                    continue;
+                                }
+                                
+                                $image_url = $full_image[0];
+                                $thumb_url = $thumbnail[0];
+                                $image_alt = $image['alt'] ?: $category['category_name'];
+                        ?>
+                                <div class="gallery-item" data-category="<?php echo esc_attr($category_slug); ?>">
+                                    <a href="<?php echo esc_url($image_url); ?>" 
+                                       class="gallery-lightbox"
+                                       title="<?php echo esc_attr($image_alt); ?>">
+                                        <img src="<?php echo esc_url($thumb_url); ?>" 
+                                             alt="<?php echo esc_attr($image_alt); ?>"
+                                             loading="lazy">
+                                        <div class="gallery-overlay">
+                                            <i class="fas fa-search-plus"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                        <?php 
+                            endforeach;
+                        endforeach; 
+                        ?>
+                    </div>
                 </div>
             <?php else : ?>
-                <p class="no-gallery-items"><?php esc_html_e('Галерея порожня.', 'ratatouille'); ?></p>
+                <div class="no-gallery-items">
+                    <p><?php esc_html_e('Галерея порожня. Додайте зображення через адмін-панель.', 'ratatouille'); ?></p>
+                </div>
             <?php endif; ?>
         </div>
     </section>
 </main>
-
-<script>
-jQuery(document).ready(function($) {
-    // Initialize Magnific Popup
-    $('.gallery-lightbox').magnificPopup({
-        type: 'image',
-        gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0, 2],
-            tCounter: '%curr% із %total%'
-        },
-        image: {
-            titleSrc: 'title',
-            verticalFit: true
-        },
-        zoom: {
-            enabled: true,
-            duration: 300,
-            easing: 'ease-in-out'
-        },
-        callbacks: {
-            beforeOpen: function() {
-                $('body').addClass('mfp-active');
-            },
-            beforeClose: function() {
-                $('.mfp-bg').remove();
-            },
-            afterClose: function() {
-                $('body').removeClass('mfp-active');
-                $('.mfp-wrap, .mfp-bg').remove();
-            }
-        }
-    });
-
-    // Initialize Isotope after images are loaded
-    var $grid = $('.gallery-grid').imagesLoaded(function() {
-        $grid.isotope({
-            itemSelector: '.gallery-item',
-            layoutMode: 'fitRows',
-            fitRows: {
-                gutter: 30
-            }
-        });
-        $grid.addClass('is-loaded');
-    });
-
-    // Category filtering
-    $('.category-filter').on('click', function() {
-        var filterValue = $(this).attr('data-category');
-        $('.category-filter').removeClass('active');
-        $(this).addClass('active');
-        
-        $grid.isotope({ 
-            filter: filterValue === 'all' ? '*' : '[data-category="' + filterValue + '"]'
-        });
-    });
-});
-</script>
 
 <?php get_footer(); ?>

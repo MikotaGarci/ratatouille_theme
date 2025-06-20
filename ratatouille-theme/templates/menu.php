@@ -10,7 +10,7 @@ get_header(); ?>
 <main id="main" class="site-main">
     <section class="menu-page">
         <div class="container">
-            <h1 class="page-title"><?php the_title(); ?></h1>
+            <h1 class="page-title menu-page-title"><?php the_title(); ?></h1>
 
             <?php 
             // Check if there's a category parameter in the URL
@@ -19,7 +19,7 @@ get_header(); ?>
             // Get the menu categories
             if (have_rows('menu_categories')) : ?>
                 <!-- Menu filter tabs -->
-                <div class="menu-tabs">
+                <div class="menu-tabs" id="menu-tabs">
                     <div class="menu-tab <?php echo empty($selected_category) ? 'active' : ''; ?>" data-category="all">
                         <?php esc_html_e('Все меню', 'ratatouille'); ?>
                     </div>
@@ -44,11 +44,10 @@ get_header(); ?>
                         $category_slug = sanitize_title($category_name);
                         $category_description = get_sub_field('category_description');
                         
-                        // Determine if this category should be visible
-                        $is_visible = empty($selected_category) || $selected_category === $category_slug;
-                        if (!$is_visible) continue;
+                        // Show all categories by default, hide with JS if needed
+                        $display_style = empty($selected_category) || $selected_category === $category_slug ? 'block' : 'none';
                     ?>
-                        <div class="menu-category" id="<?php echo esc_attr($category_slug); ?>">
+                        <div class="menu-category" id="<?php echo esc_attr($category_slug); ?>" style="display: <?php echo $display_style; ?>;">
                             <h2 class="category-title"><?php echo esc_html($category_name); ?></h2>
                             
                             <?php if ($category_description) : ?>
@@ -129,7 +128,7 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Кнопки для горизонтальной прокрутки -->
-                                <div class="menu-scroll-controls">
+                                <div class="menu-scroll-controls" id="scroll-controls-<?php echo esc_attr($category_slug); ?>">
                                     <div class="menu-scroll-btn scroll-left" data-target="<?php echo esc_attr($category_slug); ?>">
                                         <i class="fas fa-chevron-left"></i>
                                     </div>
@@ -150,14 +149,71 @@ get_header(); ?>
     </section>
 </main>
 
+<style>
+/* Додаткові стилі для сторінки меню */
+.menu-page {
+    padding-top: 120px; /* Збільшений відступ зверху */
+}
+
+.menu-page-title {
+    margin-top: 40px; /* Додатковий відступ для заголовка */
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 3rem;
+    color: var(--primary);
+    font-family: 'Playfair Display', serif;
+    position: relative;
+}
+
+.menu-page-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent);
+    margin: 20px auto;
+    border-radius: 2px;
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 768px) {
+    .menu-page {
+        padding-top: 100px;
+    }
+    
+    .menu-page-title {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-page {
+        padding-top: 90px;
+    }
+    
+    .menu-page-title {
+        margin-top: 15px;
+        margin-bottom: 25px;
+        font-size: 2rem;
+    }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Menu tab filtering
     const menuTabs = document.querySelectorAll('.menu-tab');
     
     menuTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault(); // Запобігаємо стандартній поведінці
+            
             const category = this.getAttribute('data-category');
+            
+            // Зберігаємо поточну позицію скролу
+            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             
             // Update active tab
             menuTabs.forEach(t => t.classList.remove('active'));
@@ -170,10 +226,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     cat.style.display = 'block';
                 });
                 
-                // Update URL without category parameter
+                // Update URL without category parameter (без перезавантаження)
                 const url = new URL(window.location);
                 url.searchParams.delete('category');
-                window.history.pushState({}, '', url);
+                window.history.replaceState({}, '', url);
             } else {
                 // Hide all categories
                 document.querySelectorAll('.menu-category').forEach(cat => {
@@ -186,15 +242,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     selectedCategory.style.display = 'block';
                 }
                 
-                // Update URL with category parameter
+                // Update URL with category parameter (без перезавантаження)
                 const url = new URL(window.location);
                 url.searchParams.set('category', category);
-                window.history.pushState({}, '', url);
+                window.history.replaceState({}, '', url);
             }
             
-            // Scroll to the menu section
-            const menuSection = document.querySelector('.menu-tabs');
-            menuSection.scrollIntoView({ behavior: 'smooth' });
+            // Відновлюємо позицію скролу
+            window.scrollTo(0, currentScrollPosition);
+            
+            // Перевіряємо кнопки скролу після зміни категорії
+            setTimeout(() => {
+                window.scrollTo(0, currentScrollPosition);
+                checkScrollButtons();
+            }, 100);
         });
     });
     
@@ -225,7 +286,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (categoryParam) {
         const categoryTab = document.querySelector(`.menu-tab[data-category="${categoryParam}"]`);
         if (categoryTab) {
-            categoryTab.click();
+            // Не викликаємо click(), а просто встановлюємо стан
+            menuTabs.forEach(t => t.classList.remove('active'));
+            categoryTab.classList.add('active');
+            
+            // Показуємо потрібну категорію
+            document.querySelectorAll('.menu-category').forEach(cat => {
+                cat.style.display = 'none';
+            });
+            
+            const selectedCategory = document.getElementById(categoryParam);
+            if (selectedCategory) {
+                selectedCategory.style.display = 'block';
+            }
         }
     }
     
@@ -237,10 +310,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const categoryId = this.getAttribute('data-target');
             const menuItems = document.getElementById('menu-items-' + categoryId);
-            menuItems.scrollBy({
-                left: -350,
-                behavior: 'smooth'
-            });
+            if (menuItems) {
+                menuItems.scrollBy({
+                    left: -350,
+                    behavior: 'smooth'
+                });
+                // Перевіряємо кнопки після скролу
+                setTimeout(checkScrollButtons, 300);
+            }
         });
     });
     
@@ -248,42 +325,107 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const categoryId = this.getAttribute('data-target');
             const menuItems = document.getElementById('menu-items-' + categoryId);
-            menuItems.scrollBy({
-                left: 350,
-                behavior: 'smooth'
-            });
+            if (menuItems) {
+                menuItems.scrollBy({
+                    left: 350,
+                    behavior: 'smooth'
+                });
+                // Перевіряємо кнопки після скролу
+                setTimeout(checkScrollButtons, 300);
+            }
         });
     });
     
-    // Функция для проверки видимости стрелок скролла
+    // Покращена функція для перевірки видимості стрелок скролу
     function checkScrollButtons() {
         const menuContainers = document.querySelectorAll('.menu-items');
         
         menuContainers.forEach(container => {
-            const categoryId = container.id.replace('menu-items-', '');
-            const leftBtn = document.querySelector(`.scroll-left[data-target="${categoryId}"]`);
-            const rightBtn = document.querySelector(`.scroll-right[data-target="${categoryId}"]`);
+            // Перевіряємо чи контейнер видимий
+            const categoryElement = container.closest('.menu-category');
+            if (!categoryElement || categoryElement.style.display === 'none') {
+                return; // Пропускаємо приховані категорії
+            }
             
-            // Проверяем, нужно ли показывать кнопки
-            if (container.scrollWidth > container.clientWidth) {
-                leftBtn.style.display = container.scrollLeft > 0 ? 'flex' : 'none';
-                rightBtn.style.display = (container.scrollWidth - container.clientWidth > container.scrollLeft) ? 'flex' : 'none';
+            const categoryId = container.id.replace('menu-items-', '');
+            const scrollControls = document.getElementById('scroll-controls-' + categoryId);
+            const leftBtn = scrollControls ? scrollControls.querySelector('.scroll-left') : null;
+            const rightBtn = scrollControls ? scrollControls.querySelector('.scroll-right') : null;
+            
+            if (!leftBtn || !rightBtn || !scrollControls) {
+                return;
+            }
+            
+            // Отримуємо розміри контейнера
+            const containerWidth = container.clientWidth;
+            const scrollWidth = container.scrollWidth;
+            const scrollLeft = container.scrollLeft;
+            
+            // Показуємо контроли тільки якщо є що скролити
+            if (scrollWidth > containerWidth) {
+                scrollControls.style.display = 'flex';
+                
+                // Ліва кнопка - показуємо якщо можна скролити вліво
+                if (scrollLeft > 10) { // 10px толерантність
+                    leftBtn.style.display = 'flex';
+                    leftBtn.style.opacity = '1';
+                } else {
+                    leftBtn.style.display = 'none';
+                }
+                
+                // Права кнопка - показуємо якщо можна скролити вправо
+                if (scrollLeft < (scrollWidth - containerWidth - 10)) { // 10px толерантність
+                    rightBtn.style.display = 'flex';
+                    rightBtn.style.opacity = '1';
+                } else {
+                    rightBtn.style.display = 'none';
+                }
             } else {
-                leftBtn.style.display = 'none';
-                rightBtn.style.display = 'none';
+                // Якщо немає що скролити - ховаємо всі кнопки
+                scrollControls.style.display = 'none';
             }
         });
     }
     
-    // Проверяем кнопки при загрузке и при изменении размера окна
-    window.addEventListener('load', checkScrollButtons);
-    window.addEventListener('resize', checkScrollButtons);
+    // Перевіряємо кнопки при різних подіях
+    function initScrollButtonChecking() {
+        // При завантаженні сторінки
+        setTimeout(checkScrollButtons, 500);
+        
+        // При зміні розміру вікна
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(checkScrollButtons, 250);
+        });
+        
+        // При скролі контейнерів
+        const menuContainers = document.querySelectorAll('.menu-items');
+        menuContainers.forEach(container => {
+            container.addEventListener('scroll', function() {
+                // Використовуємо throttling для оптимізації
+                if (!this.scrollTimeout) {
+                    this.scrollTimeout = setTimeout(() => {
+                        checkScrollButtons();
+                        this.scrollTimeout = null;
+                    }, 50);
+                }
+            });
+        });
+        
+        // При зміні вкладок
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                setTimeout(checkScrollButtons, 200);
+            });
+        });
+    }
     
-    // Проверяем кнопки при скролле
-    const menuContainers = document.querySelectorAll('.menu-items');
-    menuContainers.forEach(container => {
-        container.addEventListener('scroll', checkScrollButtons);
-    });
+    // Ініціалізуємо перевірку кнопок
+    initScrollButtonChecking();
+    
+    // Додаткова перевірка через певні інтервали (для надійності)
+    setInterval(checkScrollButtons, 2000);
 });
 </script>
 

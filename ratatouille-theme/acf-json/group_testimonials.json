@@ -1,0 +1,172 @@
+{
+    "key": "group_testimonials",
+    "title": "Відгуки клієнтів",
+    "fields": [
+        {
+            "key": "field_testimonial_name",
+            "label": "Ім'я клієнта",
+            "name": "testimonial_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Введіть ім'я клієнта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_testimonial_phone",
+            "label": "Телефон клієнта",
+            "name": "testimonial_phone",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Номер телефону клієнта у форматі +38 (XXX) XXX-XX-XX",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "+38 (XXX) XXX-XX-XX",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_testimonial_email",
+            "label": "Email клієнта",
+            "name": "testimonial_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Email адреса клієнта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_testimonial_rating",
+            "label": "Оцінка",
+            "name": "testimonial_rating",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "Оцінка від 1 до 5 зірочок",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 5,
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_testimonial_text",
+            "label": "Текст відгуку",
+            "name": "testimonial_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Відгук клієнта про ресторан",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_testimonial_status",
+            "label": "Статус відгуку",
+            "name": "testimonial_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Статус модерації відгуку",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "pending": "Очікує модерації",
+                "approved": "Схвалено",
+                "rejected": "Відхилено"
+            },
+            "default_value": "pending",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_testimonial_date",
+            "label": "Дата відгуку",
+            "name": "testimonial_date",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Дата та час створення відгуку (автоматично встановлюється в українському часовому поясі)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "дд.мм.рррр гг:хх",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "testimonial"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для відгуків клієнтів з правильним українським часовим поясом",
+    "show_in_rest": 0,
+    "modified": 1749715412
+}

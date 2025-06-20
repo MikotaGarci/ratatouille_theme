@@ -1,91 +1,101 @@
 jQuery(document).ready(function($) {
-    // Store initial scroll position and body overflow
-    var initialScrollPos = 0;
-    var initialBodyOverflow = $('body').css('overflow');
-
-    // Просто добавляем класс loaded для анимации
+    console.log('Gallery script loaded');
+    
+    // Add loaded class for animation
     $('.gallery-grid').addClass('is-loaded');
 
-    // Инициализация лайтбокса
-    if ($('.gallery-lightbox').length) {
-        $('.gallery-lightbox').magnificPopup({
-            type: 'image',
-            gallery: {
-                enabled: true,
-                navigateByImgClick: true,
-                preload: [0, 2],
-                tCounter: '%curr% из %total%'
-            },
-            image: {
-                titleSrc: function(item) {
-                    return item.el.find('img').attr('alt') || '';
+    // Initialize Magnific Popup for lightbox only if elements exist
+    if ($('.gallery-lightbox').length && typeof $.fn.magnificPopup !== 'undefined') {
+        console.log('Initializing Magnific Popup');
+        
+        try {
+            $('.gallery-lightbox').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 2],
+                    tCounter: '%curr% з %total%'
                 },
-                verticalFit: true
-            },
-            zoom: {
-                enabled: true,
-                duration: 300,
-                easing: 'ease-in-out'
-            },
-            callbacks: {
-                beforeOpen: function() {
-                    // Store current scroll position and body overflow
-                    initialScrollPos = $(window).scrollTop();
-                    initialBodyOverflow = $('body').css('overflow');
-                    // Set body overflow to hidden to prevent scrolling
-                    $('body').css({
-                        'overflow': 'hidden',
-                        'paddingRight': getScrollbarWidth() + 'px'
-                    });
+                image: {
+                    titleSrc: 'title',
+                    verticalFit: true,
+                    tError: 'Зображення не може бути завантажене.'
                 },
-                beforeClose: function() {
-                    // Restore original body overflow and scroll position
-                    $('body').css({
-                        'overflow': initialBodyOverflow,
-                        'paddingRight': ''
-                    });
-                    // Restore scroll position after a short delay
-                    setTimeout(function() {
-                        $(window).scrollTop(initialScrollPos);
-                    }, 10);
+                zoom: {
+                    enabled: true,
+                    duration: 300,
+                    easing: 'ease-in-out'
+                },
+                callbacks: {
+                    beforeOpen: function() {
+                        console.log('Opening lightbox');
+                        $('body').addClass('lightbox-open');
+                    },
+                    afterClose: function() {
+                        console.log('Closing lightbox');
+                        $('body').removeClass('lightbox-open');
+                    },
+                    imageLoadComplete: function() {
+                        console.log('Image loaded in lightbox');
+                    }
                 }
-            }
+            });
+        } catch (error) {
+            console.log('Error initializing Magnific Popup:', error);
+        }
+    } else {
+        console.log('Magnific Popup not available or no gallery items found');
+    }
+
+    // Category filtering
+    $('.category-filter').on('click', function() {
+        console.log('Category filter clicked');
+        
+        var filterValue = $(this).attr('data-category');
+        
+        // Update active button
+        $('.category-filter').removeClass('active');
+        $(this).addClass('active');
+        
+        // Filter gallery items
+        if (filterValue === 'all') {
+            $('.gallery-item').fadeIn(300);
+        } else {
+            $('.gallery-item').fadeOut(300);
+            $('.gallery-item[data-category="' + filterValue + '"]').fadeIn(300);
+        }
+        
+        console.log('Filtered by category: ' + filterValue);
+    });
+
+    // Lazy loading for images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            imageObserver.observe(img);
         });
     }
 
-    // Function to calculate scrollbar width
-    function getScrollbarWidth() {
-        // Create a temporary div with overflow
-        var outer = document.createElement('div');
-        outer.style.visibility = 'hidden';
-        outer.style.overflow = 'scroll';
-        document.body.appendChild(outer);
-
-        // Create an inner div
-        var inner = document.createElement('div');
-        outer.appendChild(inner);
-
-        // Calculate the width difference
-        var scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-
-        // Clean up
-        outer.parentNode.removeChild(outer);
-
-        return scrollbarWidth;
-    }
-
-    // Обработка фильтрации категорий
-    $('.category-filter').on('click', function() {
-        const filterValue = $(this).attr('data-category');
-        
-        $('.category-filter').removeClass('active').attr('aria-pressed', 'false');
-        $(this).addClass('active').attr('aria-pressed', 'true');
-        
-        if (filterValue === 'all') {
-            $('.gallery-item').show();
-        } else {
-            $('.gallery-item').hide();
-            $(`.gallery-item[data-category="${filterValue}"]`).show();
+    // Add hover effects
+    $('.gallery-item').hover(
+        function() {
+            $(this).find('.gallery-overlay').stop().fadeIn(200);
+        },
+        function() {
+            $(this).find('.gallery-overlay').stop().fadeOut(200);
         }
-    });
+    );
 });
